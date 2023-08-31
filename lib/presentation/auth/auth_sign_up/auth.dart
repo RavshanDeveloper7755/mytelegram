@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:telegram/presentation/auth/mixin/auth_mixin.dart';
-import 'package:telegram/presentation/home/home_page.dart';
 
+import '../../main_page/main_page.dart';
 import 'bloc/auth_bloc.dart';
 
 class Auth extends StatefulWidget {
@@ -22,7 +22,7 @@ class _AuthState extends State<Auth> with AuthMixin{
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (_, snapshot) {
             if(snapshot.hasData){
-              return HomePage();
+              return MainPage();
             }else {
               return Scaffold(
                 appBar: PreferredSize(
@@ -161,39 +161,6 @@ class _AuthState extends State<Auth> with AuthMixin{
                                 child: const Center(
                                   child: Text(
                                     'Register',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontFamily: 'Inter',
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                )
-                            ),
-                          ),
-                        ),
-
-
-                        Padding(
-                          padding: const EdgeInsets.only(top: 24),
-                          child: GestureDetector(
-                            onTap: (){
-                              context.read<AuthBloc>().add(LoginEvent(
-                                  email: emailController.text,
-                                  password: passwordController.text));
-                            },
-                            child: Container(
-                                width: double.infinity,
-                                height: 60,
-                                decoration: ShapeDecoration(
-                                  color: Color(0xFF36B8B8),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                ),
-                                child: const Center(
-                                  child: Text(
-                                    'Login',
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 18,

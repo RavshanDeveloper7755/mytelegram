@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:telegram/presentation/auth/auth.dart';
-import 'package:telegram/presentation/auth/bloc/auth_bloc.dart';
+import 'package:telegram/presentation/auth/auth_sign_in/bloc/sign_in_bloc.dart';
+import 'package:telegram/presentation/auth/auth_sign_up/auth.dart';
+import 'package:telegram/presentation/auth/auth_sign_up/bloc/auth_bloc.dart';
+import 'package:telegram/presentation/main_page/bloc/main_bloc.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -19,11 +21,20 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AuthBloc(),
+        ),
+        BlocProvider(
+          create: (context) => SignInBloc(),
+        ),
+        BlocProvider(
+          create: (context) => MainBloc(),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
